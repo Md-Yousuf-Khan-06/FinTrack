@@ -12,12 +12,18 @@ def select_payment_method():
     user_payment_method=payment_methods[payment_method_choice]
     return user_payment_method
 
+def display_income(income):
+        print(f"Amount: {income['amount']}")
+        print(f"Source: {income['source']}")
+        print(f"Payment Method: {income['payment_method']}")
+        print("-------------------------")
+
 def display_expense(expense):
-            print(f"Amount: {expense['amount']}")
-            print(f"Category: {expense['category']}")
-            print(f"description: {expense['description']}")
-            print(f"Payment Method: {expense['payment_method']}")
-            print("-------------------------")
+        print(f"Amount: {expense['amount']}")
+        print(f"Category: {expense['category']}")
+        print(f"Description: {expense['description']}")
+        print(f"Payment Method: {expense['payment_method']}")
+        print("-------------------------")
 
 income_records=[]
 expense_records=[]
@@ -65,17 +71,19 @@ while choice!=6:
 
     elif choice==3:
         print("======TRANSACTIONS======")
-
-        print("----INCOME----")
+        if not income_records:
+            print("No income records found")
+        else:
+            print("----INCOME----")
         for income in income_records:
-            print(f"Amount: {income['amount']}")
-            print(f"Source: {income['source']}")
-            print(f"Payment Method: {income['payment_method']}")
-            print("-------------------------")
+            display_income(income)
 
-        print("----EXPENSE----")
-        for expense in expense_records:
-            display_expense(expense)
+        if not expense_records:
+            print("No expense records found")
+        else:
+            print("----EXPENSE----")
+            for expense in expense_records:
+                display_expense(expense)
         
 
 
@@ -107,15 +115,15 @@ while choice!=6:
             payment_method=select_payment_method()
             found=False
             for expense in expense_records:
-                if payment_method in expense["payment_method"]:
+                if payment_method == expense["payment_method"]:
                     display_expense(expense)
                     found=True
             if not found:
                 print("No matching transactions found.")
-            
-            # input("Enter Payment Method: ")
+        elif user_choice==4:
+            # continue
+            print("Returning back to main menu")
 
-        # print("Searching transactions...")
 
 
 
@@ -123,7 +131,28 @@ while choice!=6:
 
 
     elif choice==5:
-        print("Generating monthly summary...") 
+        total_income=0
+        total_expense=0
+        for income in income_records:
+            total_income += income["amount"]
+        for expense in expense_records:
+            total_expense += expense["amount"]
+        balance=total_income-total_expense
+        print("\n====== MONTHLY SUMMARY ======")
+        print(f"Total Income : {total_income}")
+        print(f"Total Expense: {total_expense}")
+        print(f"Balance      : {balance}")
+        if balance>0:
+            print("Net Saving Status: Profit✅")
+        elif balance<0:
+            print("Net Saving Status: Loss❌")
+        else:
+            print("Net Savings Status: Break Even")
+
+
+
+
+
     elif choice==6:
         print("Thank you for using FinTrack!")
     else:
