@@ -1,3 +1,4 @@
+import json
 payment_methods= {
             1: "Cash",
             2: "UPI",
@@ -24,10 +25,16 @@ def display_expense(expense):
         print(f"Description: {expense['description']}")
         print(f"Payment Method: {expense['payment_method']}")
         print("-------------------------")
-
 income_records=[]
 expense_records=[]
-
+def save_data():
+    data={
+        "income": income_records,
+        "expense": expense_records
+    }
+    
+    with open("data.json","w") as file:
+        json.dump(data, file, indent=3)
 
 choice=0
 while choice!=6:
@@ -51,6 +58,7 @@ while choice!=6:
                 "payment_method":payment
             }
         income_records.append(income)
+        save_data()
         print("\n✅ Payment added successfully!\n")
 
 
@@ -66,6 +74,7 @@ while choice!=6:
             "payment_method":payment
         }
         expense_records.append(expense)
+        save_data()
         print("Expense added successfully")
 
 
@@ -75,8 +84,8 @@ while choice!=6:
             print("No income records found")
         else:
             print("----INCOME----")
-        for income in income_records:
-            display_income(income)
+            for income in income_records:
+                display_income(income)
 
         if not expense_records:
             print("No expense records found")
