@@ -1,4 +1,5 @@
 import json
+import datetime
 payment_methods= {
             1: "Cash",
             2: "UPI",
@@ -62,10 +63,13 @@ while choice!=6:
         amount = int(input("Enter income amount: "))
         source = input("Enter income source: ")
         payment=select_payment_method()
+        current=datetime.datetime.now()
         income={
                 "amount":amount,
                 "source":source,
-                "payment_method":payment
+                "payment_method":payment,
+                "current_date":current.strftime("%d-%m-%Y"),
+                "current_time":current.strftime('%I:%M %p')
             }
         income_records.append(income)
         save_data()
@@ -77,11 +81,14 @@ while choice!=6:
         category=input("Enter the expense category:")
         description=input("Enter things you bought:")
         payment=select_payment_method()
+        current=datetime.datetime.now()
         expense={
             "amount":expense_amount,
             "category":category,
             "description": description,
-            "payment_method":payment
+            "payment_method":payment,
+            "current_date":current.strftime("%d-%m-%Y"),
+            "current_time":current.strftime('%I:%M %p')
         }
         expense_records.append(expense)
         save_data()
