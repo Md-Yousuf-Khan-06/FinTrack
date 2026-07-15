@@ -119,7 +119,7 @@ def view_transactions():
 
 def search_transactions():
     print("Search by:\n 1. Category\n 2. Description\n 3. Payment Method\n 4. Back to Menu")
-    user_choice=int(input("Enter Your Choice: "))
+    user_choice=get_valid_choice("Enter Your Choice: ",1 ,4)
     if user_choice==1:
         category= input("Enter Category: ")
         found=False
@@ -183,8 +183,7 @@ def main_menu():
         print("4. Search Transactions")
         print("5. Monthly Summary")
         print("6. Exit\n")
-        choice=int(input("Enter Your Choice: "))
-
+        choice=get_valid_choice("Enter Your Choice:", 1, 6)
         if choice==1:
             add_income()
 
@@ -204,6 +203,16 @@ def main_menu():
             print("Thank you for using FinTrack!")
         else:
             print("Invalid choice! Please try again.")
+def get_valid_choice(prompt, minimum, maximum):
+        while True:
+            try:
+                choice=int(input(prompt))
+                if minimum<=choice<=maximum:
+                    return choice
+                else:
+                    print("Enter a Valid choice")
+            except ValueError:
+                print("Invalid choice. Please enter a number between 1 and 6.")       
 load_data()
 main_menu()
 
