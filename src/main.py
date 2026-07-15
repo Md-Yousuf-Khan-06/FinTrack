@@ -6,7 +6,6 @@ payment_methods= {
             4: "Card"
         }
 
-
 def select_payment_method():
     print("Select payment method:\n 1. Cash\n 2. UPI\n 3. Bank Transfer\n 4. Card")
     payment_method_choice = int(input("Enter your payment method choice:\n"))
@@ -28,14 +27,25 @@ def display_expense(expense):
 income_records=[]
 expense_records=[]
 def save_data():
-    data={
+    data = {
         "income": income_records,
         "expense": expense_records
     }
-    
     with open("data.json","w") as file:
         json.dump(data, file, indent=3)
-
+def load_data():
+    global income_records
+    global expense_records
+    try:
+        with open("data.json","r") as file:
+            data=json.load(file)
+            income_records= data["income"]
+            expense_records=data["expense"]
+    except FileNotFoundError:
+        income_records=[]
+        expense_records=[]
+        print("No previous data found. Starting with empty records.")
+load_data()
 choice=0
 while choice!=6:
     print("\nFINTRACK")
