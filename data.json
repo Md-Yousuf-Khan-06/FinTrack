@@ -11,6 +11,13 @@
          "payment_method": "Bank Transfer",
          "current_date": "15-07-2026",
          "current_time": "02:31 PM"
+      },
+      {
+         "amount": 20000,
+         "source": "salary",
+         "payment_method": "UPI",
+         "current_date": "15-07-2026",
+         "current_time": "02:57 PM"
       }
    ],
    "expense": []
