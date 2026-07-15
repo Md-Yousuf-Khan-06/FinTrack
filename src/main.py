@@ -27,6 +27,8 @@ def display_income(income):
         print(f"Amount: {income['amount']}")
         print(f"Source: {income['source']}")
         print(f"Payment Method: {income['payment_method']}")
+        print(f"Payment Date: {income['current_date']}")
+        print(f"Payment Time: {income['current_time']}")
         print("-------------------------")
 
 def display_expense(expense):
@@ -34,6 +36,8 @@ def display_expense(expense):
         print(f"Category: {expense['category']}")
         print(f"Description: {expense['description']}")
         print(f"Payment Method: {expense['payment_method']}")
+        print(f"Payment Date: {expense['current_date']}")
+        print(f"Payment Time: {expense['current_time']}")
         print("-------------------------")
 
 def save_data():
@@ -66,10 +70,18 @@ def get_valid_amount(prompt):
                 print("Amount must be greater than 0")
         except ValueError:
             print("Invalid Input, Please enter valid input")
+def get_valid_text(prompt):
+    while True:
+        text=input(prompt).strip()
+        if text=="":
+            print("Enter valid text")
+        else:
+            return text
+        
 
 def add_income():
     amount = get_valid_amount("Enter the income amount: ")
-    source = input("Enter income source: ")
+    source = get_valid_text("Enter income source: ")
     payment=select_payment_method()
     current=datetime.datetime.now()
     income={
@@ -85,8 +97,8 @@ def add_income():
 
 def add_expense():
     expense_amount=get_valid_amount("Enter the expense amount: ")
-    category=input("Enter the expense category: ")
-    description=input("Enter things you bought: ")
+    category = get_valid_text("Enter the expense category: ")
+    description = get_valid_text("Enter things you bought: ")
     payment=select_payment_method()
     current=datetime.datetime.now()
     expense={

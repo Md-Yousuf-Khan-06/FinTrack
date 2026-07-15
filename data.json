@@ -18,7 +18,23 @@
          "payment_method": "UPI",
          "current_date": "15-07-2026",
          "current_time": "02:57 PM"
+      },
+      {
+         "amount": 22000,
+         "source": "Salary",
+         "payment_method": "Bank Transfer",
+         "current_date": "15-07-2026",
+         "current_time": "08:37 PM"
       }
    ],
-   "expense": []
+   "expense": [
+      {
+         "amount": 2000,
+         "category": "Gym",
+         "description": "Nothing",
+         "payment_method": "UPI",
+         "current_date": "15-07-2026",
+         "current_time": "08:37 PM"
+      }
+   ]
 }
