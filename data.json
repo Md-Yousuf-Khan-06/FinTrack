@@ -1,4 +1,36 @@
 {
-    "income": [],
-    "expense": []
+   "income": [
+      {
+         "amount": 22000,
+         "source": "Salary",
+         "payment_method": "Bank Transfer",
+         "current_date": "17-07-2026",
+         "current_time": "10:13 PM"
+      },
+      {
+         "amount": 1000,
+         "source": "wages",
+         "payment_method": "Cash",
+         "current_date": "17-07-2026",
+         "current_time": "10:13 PM"
+      }
+   ],
+   "expense": [
+      {
+         "amount": 1000,
+         "category": "Gym",
+         "description": "Gym fees",
+         "payment_method": "UPI",
+         "current_date": "17-07-2026",
+         "current_time": "10:13 PM"
+      },
+      {
+         "amount": 500,
+         "category": "oil and rice",
+         "description": "groceries",
+         "payment_method": "Cash",
+         "current_date": "17-07-2026",
+         "current_time": "10:14 PM"
+      }
+   ]
 }

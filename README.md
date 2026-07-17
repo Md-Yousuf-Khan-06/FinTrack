@@ -6,6 +6,18 @@ FinTrack helps users manage their personal finances by allowing them to record i
 
 ---
 
+## 📷 Preview
+
+### Main Menu
+
+![Main Menu](docs/menu.png)
+
+### Transactions
+
+![Transactions](docs/transactions.png)
+
+---
+
 ## ✨ Features
 
 - ➕ Add income transactions
