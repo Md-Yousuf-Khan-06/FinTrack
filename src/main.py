@@ -19,9 +19,9 @@ def select_payment_method():
                 return payment_methods[payment_method_choice]
                 
             else:
-                print("Enter valid payment choice")
+                print("Please enter a valid payment choice.")
         except  ValueError:
-            print("Enter valid payment choice")
+            print("Please enter a valid payment choice.")
 
 def display_income(income):
         print(f"Amount: {income['amount']}")
@@ -132,17 +132,17 @@ def search_transactions():
     print("Search by:\n 1. Category\n 2. Description\n 3. Payment Method\n 4. Back to Menu")
     user_choice=get_valid_choice("Enter Your Choice: ",1 ,4)
     if user_choice==1:
-        category= input("Enter Category: ")
+        category = get_valid_text("Enter Category: ")
         found=False
         for expense in expense_records:
             if category.lower() in expense["category"].lower():
                 found=True
                 display_expense(expense)
         if not found:
-            print("No matching transactions found")
+            print("No matching transactions found.")
 
     elif user_choice==2:
-        description =input("Enter Description: ")
+        description = get_valid_text("Enter Description: ")
         found=False
         for expense in expense_records:
             if description.lower() in expense["description"].lower():
@@ -225,19 +225,19 @@ def get_valid_choice(prompt, minimum, maximum):
                 if minimum<=choice<=maximum:
                     return choice
                 else:
-                    print("Enter a Valid choice")
+                    print("Please enter a valid choice.")
             except ValueError:
-                print("Invalid choice. Please enter a number between 1 and 7.")      
+                print(f"Invalid choice. Please enter a number between {minimum} and {maximum}.")      
 def delete_transactions():
     if not expense_records:
-        print("No Expense Records Found")
+        print("No expense records found.")
     else:
         for number, expense in enumerate(expense_records, start=1):
             print(f"{number}. {expense['category']} | ₹{expense['amount']} | {expense['description']}")
         choice = get_valid_choice("Enter a Valid Choice: ", 1, len(expense_records))
         expense_records.pop(choice-1)
         save_data()
-        print("Transaction Successfully deleted")
+        print("✅ Transaction deleted successfully!")
 
 
 
