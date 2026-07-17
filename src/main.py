@@ -77,7 +77,6 @@ def get_valid_text(prompt):
             print("Enter valid text")
         else:
             return text
-        
 
 def add_income():
     amount = get_valid_amount("Enter the income amount: ")
@@ -186,7 +185,7 @@ def monthly_summary():
 
 def main_menu():
     choice=0
-    while choice!=6:
+    while choice!=7:
         print("\nFINTRACK")
         print("Personal Finance Management System\n")
         print("1. Add Income")
@@ -194,8 +193,9 @@ def main_menu():
         print("3. View Transactions")
         print("4. Search Transactions")
         print("5. Monthly Summary")
-        print("6. Exit\n")
-        choice=get_valid_choice("Enter Your Choice:", 1, 6)
+        print("6. Delete Transaction\n")
+        print("7. Exit\n")
+        choice=get_valid_choice("Enter Your Choice:", 1, 7)
         if choice==1:
             add_income()
 
@@ -212,6 +212,9 @@ def main_menu():
             monthly_summary()
 
         elif choice==6:
+            delete_transactions()
+
+        elif choice==7:
             print("Thank you for using FinTrack!")
         else:
             print("Invalid choice! Please try again.")
@@ -224,7 +227,21 @@ def get_valid_choice(prompt, minimum, maximum):
                 else:
                     print("Enter a Valid choice")
             except ValueError:
-                print("Invalid choice. Please enter a number between 1 and 6.")       
+                print("Invalid choice. Please enter a number between 1 and 7.")      
+def delete_transactions():
+    if not expense_records:
+        print("No Expense Records Found")
+    else:
+        for number, expense in enumerate(expense_records, start=1):
+            print(f"{number}. {expense['category']} | ₹{expense['amount']} | {expense['description']}")
+        choice = get_valid_choice("Enter a Valid Choice: ", 1, len(expense_records))
+        expense_records.pop(choice-1)
+        save_data()
+        print("Transaction Successfully deleted")
+
+
+
+
 load_data()
 main_menu()
 
