@@ -55,9 +55,10 @@ def load_data():
             data=json.load(file)
             income_records= data["income"]
             expense_records=data["expense"]
-    except FileNotFoundError:
+    except (FileNotFoundError, json.JSONDecodeError):
         income_records=[]
         expense_records=[]
+        save_data()
         print("No previous data found. Starting with empty records.")
 
 def get_valid_amount(prompt):
