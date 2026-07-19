@@ -1,8 +1,8 @@
 # 💰 FinTrack
 
-A command-line Personal Finance Management System built using Python.
+A modular command-line Personal Finance Management System built with Python.
 
-FinTrack helps users manage their personal finances by allowing them to record income and expenses, search transactions, view monthly summaries, and securely store data using JSON.
+FinTrack enables users to manage their personal finances by recording income and expenses, searching transactions, viewing monthly summaries, deleting expense records, and securely storing data using JSON. The project follows a modular architecture, making it clean, maintainable, and easy to extend with future features.
 
 ---
 
@@ -45,17 +45,42 @@ FinTrack helps users manage their personal finances by allowing them to record i
 
 ---
 
+## 🏗️ Project Architecture
+
+The project follows a modular design where each module has a single responsibility.
+
+```text
+main.py
+│
+├── validation.py     → Input validation
+├── payment.py        → Payment method selection
+├── income.py         → Income management
+├── expense.py        → Expense management
+├── transactions.py   → View, search & delete transactions
+├── summary.py        → Monthly financial summary
+└── storage.py        → JSON file operations
+```
+
 ## 📁 Project Structure
 
 ```text
 FinTrack/
 │
 ├── src/
-│   └── main.py
+│   ├── main.py
+│   ├── income.py
+│   ├── expense.py
+│   ├── transactions.py
+│   ├── summary.py
+│   ├── storage.py
+│   ├── payment.py
+│   └── validation.py
+│
 ├── docs/
 ├── data.json
 ├── requirements.txt
 ├── README.md
+├── LICENSE
 └── .gitignore
 ```
 
@@ -111,12 +136,13 @@ Personal Finance Management System
 
 ## 🚀 Future Improvements
 
-- Refactor the project into multiple Python modules
+- Edit existing income and expense transactions
 - Search income transactions
-- Edit existing transactions
 - Category-wise expense reports
 - Monthly and yearly financial reports
 - SQLite database integration
+- User authentication
+- Dashboard with charts and analytics
 - GUI using Tkinter or PyQt
 - Web version using Django or Flask
 
@@ -138,14 +164,26 @@ Personal Finance Management System
 
 ## 📌 Project Status
 
-**Version:** 1.0
+**Version:** 2.0
 
-✅ The core features of FinTrack are complete and fully functional.
+✅ FinTrack V2 is complete.
 
-### Planned Enhancements
+### Current Features
 
-- Modular project architecture
-- Database integration (SQLite)
-- Enhanced financial reports
-- Graphical User Interface (GUI)
-- Additional analytics and visualizations
+- Modular Python architecture
+- Income management
+- Expense management
+- Transaction search
+- Monthly financial summary
+- Delete expense transactions
+- Automatic JSON data storage
+- Automatic date and time recording
+- Input validation
+
+---
+
+## ⭐ If you found this project useful
+
+Feel free to star the repository and explore the code.
+
+Contributions, suggestions, and feedback are always welcome.
