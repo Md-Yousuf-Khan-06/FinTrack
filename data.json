@@ -13,6 +13,20 @@
          "payment_method": "Cash",
          "current_date": "17-07-2026",
          "current_time": "10:13 PM"
+      },
+      {
+         "amount": 43000,
+         "source": "salary",
+         "payment_method": "Bank Transfer",
+         "current_date": "19-07-2026",
+         "current_time": "07:39 PM"
+      },
+      {
+         "amount": 500,
+         "source": "freelancing",
+         "payment_method": "Bank Transfer",
+         "current_date": "19-07-2026",
+         "current_time": "08:38 PM"
       }
    ],
    "expense": [
@@ -26,11 +40,11 @@
       },
       {
          "amount": 500,
-         "category": "oil and rice",
-         "description": "groceries",
+         "category": "Food",
+         "description": "biscuit, chocolates, icecream",
          "payment_method": "Cash",
-         "current_date": "17-07-2026",
-         "current_time": "10:14 PM"
+         "current_date": "19-07-2026",
+         "current_time": "08:39 PM"
       }
    ]
 }

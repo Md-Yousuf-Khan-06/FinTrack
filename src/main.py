@@ -1,83 +1,13 @@
-import json
 import datetime
+from validation import get_valid_amount, get_valid_text, get_valid_choice
+from storage import load_data, save_data
+from payment import select_payment_method
+from summary import monthly_summary
+from transactions import delete_transactions, search_transactions, view_transactions
 
-payment_methods= {
-            1: "Cash",
-            2: "UPI",
-            3: "Bank Transfer",
-            4: "Card"
-        }
+
 income_records=[]
 expense_records=[]
-
-def select_payment_method():
-    print("Select payment method:\n 1. Cash\n 2. UPI\n 3. Bank Transfer\n 4. Card")
-    while True:
-        try:
-            payment_method_choice = int(input("Enter your payment method choice:\n"))
-            if payment_method_choice in payment_methods:
-                return payment_methods[payment_method_choice]
-                
-            else:
-                print("Please enter a valid payment choice.")
-        except  ValueError:
-            print("Please enter a valid payment choice.")
-
-def display_income(income):
-        print(f"Amount: {income['amount']}")
-        print(f"Source: {income['source']}")
-        print(f"Payment Method: {income['payment_method']}")
-        print(f"Payment Date: {income['current_date']}")
-        print(f"Payment Time: {income['current_time']}")
-        print("-------------------------")
-
-def display_expense(expense):
-        print(f"Amount: {expense['amount']}")
-        print(f"Category: {expense['category']}")
-        print(f"Description: {expense['description']}")
-        print(f"Payment Method: {expense['payment_method']}")
-        print(f"Payment Date: {expense['current_date']}")
-        print(f"Payment Time: {expense['current_time']}")
-        print("-------------------------")
-
-def save_data():
-    data = {
-        "income": income_records,
-        "expense": expense_records
-    }
-    with open("data.json","w") as file:
-        json.dump(data, file, indent=3)
-def load_data():
-    global income_records
-    global expense_records
-    try:
-        with open("data.json","r") as file:
-            data=json.load(file)
-            income_records= data["income"]
-            expense_records=data["expense"]
-    except (FileNotFoundError, json.JSONDecodeError):
-        income_records=[]
-        expense_records=[]
-        save_data()
-        print("No previous data found. Starting with empty records.")
-
-def get_valid_amount(prompt):
-    while True:
-        try:
-            amount=int(input(prompt))
-            if amount>0:
-                return amount
-            else:
-                print("Amount must be greater than 0")
-        except ValueError:
-            print("Invalid Input, Please enter valid input")
-def get_valid_text(prompt):
-    while True:
-        text=input(prompt).strip()
-        if text=="":
-            print("Enter valid text")
-        else:
-            return text
 
 def add_income():
     amount = get_valid_amount("Enter the income amount: ")
@@ -92,7 +22,7 @@ def add_income():
             "current_time":current.strftime('%I:%M %p')
             }
     income_records.append(income)
-    save_data()
+    save_data(income_records, expense_records)
     print("\n✅ Income added successfully!\n")
 
 def add_expense():
@@ -110,79 +40,9 @@ def add_expense():
         "current_time":current.strftime('%I:%M %p')
         }
     expense_records.append(expense)
-    save_data()
+    save_data(income_records,expense_records)
     print("\n✅ Expense added successfully!\n")
 
-def view_transactions():
-    print("======TRANSACTIONS======")
-    if not income_records:
-        print("No income records found")
-    else:
-        print("----INCOME----")
-        for income in income_records:
-            display_income(income)
-
-    if not expense_records:
-        print("No expense records found")
-    else:
-        print("----EXPENSE----")
-        for expense in expense_records:
-            display_expense(expense)
-
-def search_transactions():
-    print("Search by:\n 1. Category\n 2. Description\n 3. Payment Method\n 4. Back to Menu")
-    user_choice=get_valid_choice("Enter Your Choice: ",1 ,4)
-    if user_choice==1:
-        category = get_valid_text("Enter Category: ")
-        found=False
-        for expense in expense_records:
-            if category.lower() in expense["category"].lower():
-                found=True
-                display_expense(expense)
-        if not found:
-            print("No matching transactions found.")
-
-    elif user_choice==2:
-        description = get_valid_text("Enter Description: ")
-        found=False
-        for expense in expense_records:
-            if description.lower() in expense["description"].lower():
-                found=True
-                display_expense(expense)
-        if not found:
-            print("No matching transactions found.")
-
-    elif user_choice==3:
-        payment_method=select_payment_method()
-        found=False
-        for expense in expense_records:
-            if payment_method == expense["payment_method"]:
-                display_expense(expense)
-                found=True
-        if not found:
-            print("No matching transactions found.")
-    elif user_choice==4:
-         # continue
-        print("Returning back to main menu")
-
-def monthly_summary():
-    total_income=0
-    total_expense=0
-    for income in income_records:
-        total_income += income["amount"]
-    for expense in expense_records:
-        total_expense += expense["amount"]
-    balance=total_income-total_expense
-    print("\n====== MONTHLY SUMMARY ======")
-    print(f"Total Income : {total_income}")
-    print(f"Total Expense: {total_expense}")
-    print(f"Balance      : {balance}")
-    if balance>0:
-        print("Net Saving Status: Profit✅")
-    elif balance<0:
-        print("Net Saving Status: Loss❌")
-    else:
-        print("Net Savings Status: Break Even")
 
 def main_menu():
     choice=0
@@ -204,46 +64,24 @@ def main_menu():
             add_expense()
         
         elif choice==3:
-            view_transactions()
+            view_transactions(income_records, expense_records)
 
         elif choice==4:
-            search_transactions()
+            search_transactions(expense_records)
 
         elif choice==5:
-            monthly_summary()
+            monthly_summary(income_records, expense_records)
 
         elif choice==6:
-            delete_transactions()
+            delete_transactions(income_records, expense_records)
 
         elif choice==7:
             print("Thank you for using FinTrack!")
         else:
             print("Invalid choice! Please try again.")
-def get_valid_choice(prompt, minimum, maximum):
-        while True:
-            try:
-                choice=int(input(prompt))
-                if minimum<=choice<=maximum:
-                    return choice
-                else:
-                    print("Please enter a valid choice.")
-            except ValueError:
-                print(f"Invalid choice. Please enter a number between {minimum} and {maximum}.")      
-def delete_transactions():
-    if not expense_records:
-        print("No expense records found.")
-    else:
-        for number, expense in enumerate(expense_records, start=1):
-            print(f"{number}. {expense['category']} | ₹{expense['amount']} | {expense['description']}")
-        choice = get_valid_choice("Enter a Valid Choice: ", 1, len(expense_records))
-        expense_records.pop(choice-1)
-        save_data()
-        print("✅ Transaction deleted successfully!")
+   
 
-
-
-
-load_data()
+income_records, expense_records = load_data()
 main_menu()
 
 
