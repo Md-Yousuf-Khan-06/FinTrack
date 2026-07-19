@@ -27,6 +27,20 @@
          "payment_method": "Bank Transfer",
          "current_date": "19-07-2026",
          "current_time": "08:38 PM"
+      },
+      {
+         "amount": 1200,
+         "source": "Wages",
+         "payment_method": "Cash",
+         "current_date": "19-07-2026",
+         "current_time": "08:51 PM"
+      },
+      {
+         "amount": 15000,
+         "source": "salary",
+         "payment_method": "Card",
+         "current_date": "19-07-2026",
+         "current_time": "08:59 PM"
       }
    ],
    "expense": [
